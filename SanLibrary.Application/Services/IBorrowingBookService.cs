@@ -2,7 +2,7 @@
 
 namespace SanLibrary.Application.Services
 {
-    internal interface IBorrowingBookService
+    public interface IBorrowingBookService
     {
         Task BorrowBookAsync(BorrowBookDto dto);
     }

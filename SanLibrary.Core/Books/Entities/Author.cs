@@ -19,5 +19,10 @@ namespace SanLibrary.Core.Books.Entities
             FirstName = firstName;
             LastName = lastName;
         }
+
+        public override string ToString()
+        {
+            return $"{FirstName} {LastName}";
+        }
     }
 }
