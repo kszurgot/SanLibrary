@@ -29,8 +29,8 @@ namespace SanLibrary.Web
 
             var app = builder.Build();
 
-            app.UseErrorHandlerMiddleware()
-                .UseSeeder();
+            app.UseErrorHandlerMiddleware();
+            app.Services.UseSeeder();
 
             // Configure the HTTP request pipeline.
             if (app.Environment.IsDevelopment())

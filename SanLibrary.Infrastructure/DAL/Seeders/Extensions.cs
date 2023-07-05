@@ -10,15 +10,15 @@ namespace SanLibrary.Infrastructure.DAL.Seeders
 {
     public static class Extensions
     {
-        public static IApplicationBuilder UseSeeder(this IApplicationBuilder app)
+        public static IServiceProvider UseSeeder(this IServiceProvider serviceProvider)
         {
-            using (var scope = app.ApplicationServices.CreateScope())
+            using (var scope = serviceProvider.CreateScope())
             {
                 var seeder = scope.ServiceProvider.GetRequiredService<Seeder>();
                 seeder.Seed();
             }
 
-            return app;
+            return serviceProvider;
         }
     }
 }

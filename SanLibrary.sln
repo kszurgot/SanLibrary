@@ -9,7 +9,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SanLibrary.Core", "SanLibra
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SanLibrary.Application", "SanLibrary.Application\SanLibrary.Application.csproj", "{E117DBDC-BEE5-47A8-8BEF-E196F2EDA25B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SanLibrary.Infrastructure", "SanLibrary.Infrastructure\SanLibrary.Infrastructure.csproj", "{CEEA5819-98E4-4932-A7AC-E51892F3F52E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SanLibrary.Infrastructure", "SanLibrary.Infrastructure\SanLibrary.Infrastructure.csproj", "{CEEA5819-98E4-4932-A7AC-E51892F3F52E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SanLibrary.Console", "SanLibrary.Console\SanLibrary.Console.csproj", "{8475A3E4-7E1F-43D1-B4FF-A0D8F26ECAF3}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -33,6 +35,10 @@ Global
 		{CEEA5819-98E4-4932-A7AC-E51892F3F52E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{CEEA5819-98E4-4932-A7AC-E51892F3F52E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{CEEA5819-98E4-4932-A7AC-E51892F3F52E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8475A3E4-7E1F-43D1-B4FF-A0D8F26ECAF3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8475A3E4-7E1F-43D1-B4FF-A0D8F26ECAF3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8475A3E4-7E1F-43D1-B4FF-A0D8F26ECAF3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8475A3E4-7E1F-43D1-B4FF-A0D8F26ECAF3}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
