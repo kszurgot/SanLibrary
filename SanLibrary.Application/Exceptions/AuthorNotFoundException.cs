@@ -2,7 +2,7 @@
 
 namespace SanLibrary.Application.Exceptions;
 
-internal sealed class AuthorNotFoundException : CustomException
+internal sealed class AuthorNotFoundException : NotFoundException
 {
     public Guid AuthorId { get; }
 

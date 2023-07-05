@@ -28,17 +28,19 @@ namespace SanLibrary.Core.Books.Entities
 
         internal void AddBook(BorrowingBook book, IClock clock)
         {
-            if (_books.Count > 3)
+            if (_books.Count >= 3)
             {
                 throw new CannotBorrowingBookException(book.BookId);
             }
 
-            if (book.Date.Value < clock.Current() || book.Date.Value.Month != Month)
+            if (book.Date.Value < clock.Current() 
+                || book.Date.Value >= book.ReturnDate.Value 
+                || book.Date.Value.Month != Month)
             {
                 throw new InvalidBorrowingBookDateException(book.Date);
             }
 
-            if (book.ReturnDate.Value < clock.Current().AddDays(ReturnLimitDays))
+            if (book.ReturnDate.Value > clock.Current().AddDays(ReturnLimitDays))
             {
                 throw new InvalidBorrowingBookReturnDateException(book.ReturnDate);
             }

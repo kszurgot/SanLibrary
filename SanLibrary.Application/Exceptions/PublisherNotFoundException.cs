@@ -2,7 +2,7 @@
 
 namespace SanLibrary.Application.Exceptions;
 
-internal sealed class PublisherNotFoundException : CustomException
+internal sealed class PublisherNotFoundException : NotFoundException
 {
     public Guid PublsherId { get; }
 

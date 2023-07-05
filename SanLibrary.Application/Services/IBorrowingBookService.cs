@@ -4,6 +4,7 @@ namespace SanLibrary.Application.Services
 {
     public interface IBorrowingBookService
     {
-        Task BorrowBookAsync(BorrowBookDto dto);
+        Task BorrowBookAsync(BorrowingBookDto dto);
+        Task<IEnumerable<BorrowingBooksUserDto>> GetAllAsync(Guid userId);
     }
 }

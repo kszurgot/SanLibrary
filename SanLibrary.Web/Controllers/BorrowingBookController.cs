@@ -1,10 +1,11 @@
 using Microsoft.AspNetCore.Mvc;
+using SanLibrary.Application.DTO;
 using SanLibrary.Application.Services;
 
 namespace SanLibrary.Web.Controllers
 {
     [ApiController]
-    [Route("[controller]")]
+    [Route("borrowing-book")]
     public class BorrowingBookController : ControllerBase
     {
         private readonly IBorrowingBookService _borrowingBookService;
@@ -14,16 +15,21 @@ namespace SanLibrary.Web.Controllers
             _borrowingBookService = borrowingBookService;
         }
 
-        //[HttpGet(Name = "GetWeatherForecast")]
-        //public IEnumerable<WeatherForecast> Get()
-        //{
-        //    //return Enumerable.Range(1, 5).Select(index => new WeatherForecast
-        //    //{
-        //    //    Date = DateTime.Now.AddDays(index),
-        //    //    TemperatureC = Random.Shared.Next(-20, 55),
-        //    //    Summary = Summaries[Random.Shared.Next(Summaries.Length)]
-        //    //})
-        //    //.ToArray();
-        //}
+        [HttpGet]
+        public async Task<ActionResult<IEnumerable<BorrowingBookDto>>> Get()
+        {
+            var UserId = Guid.Parse("00000000-0000-0000-0000-000000000001"); // should be taken from: User.Identity.Name
+            return Ok(await _borrowingBookService.GetAllAsync(UserId));
+        }
+
+        [HttpPost]
+        public async Task<ActionResult> Post(BorrowingBookDto dto)
+        {
+            dto.Id = Guid.NewGuid();
+            dto.UserId = Guid.Parse("00000000-0000-0000-0000-000000000001"); // should be taken from: User.Identity.Name
+            await _borrowingBookService.BorrowBookAsync(dto);
+            
+            return NoContent();
+        }
     }
 }

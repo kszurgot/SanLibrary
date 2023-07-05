@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace SanLibrary.Application.DTO
 {
-    public class BorrowBookDto
+    public class BorrowingBookDto
     {
         public Guid Id { get; set; }
         public Guid BookId { get; set; }

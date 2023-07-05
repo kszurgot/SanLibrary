@@ -20,6 +20,9 @@ namespace SanLibrary.Infrastructure.DAL.Repositories
         public Task<IEnumerable<BorrowingBooksUser>> GetAllAsync() 
             => Task.FromResult(BorrowingBooksUser.AsEnumerable());
 
+        public Task<IEnumerable<BorrowingBooksUser>> GetAllForUserAsync(UserId userId)
+            => Task.FromResult(BorrowingBooksUser.Where(x => x.UserId == userId).AsEnumerable());
+
         public Task<BorrowingBooksUser?> GetForCurrentMonthAsync(UserId userId) 
             => Task.FromResult(BorrowingBooksUser
                 .SingleOrDefault(x => x.UserId == userId && x.Month == _clock.Current().Month));

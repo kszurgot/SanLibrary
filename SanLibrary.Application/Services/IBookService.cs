@@ -9,9 +9,10 @@ namespace SanLibrary.Application.Services
 {
     public interface IBookService
     {
-        Task<IEnumerable<BookDto>> GetAllAsync();
+        Task<IEnumerable<BookDto>> GetAllAsync(QueryBookDto query);
         Task<BookDto> GetAsync(Guid bookId);
         Task AddAsync(CreateBookDto book);
+        Task UpdateAsync(UpdateBookDto updateBook);
         Task DeleteAsync(Guid bookId);
     }
 }

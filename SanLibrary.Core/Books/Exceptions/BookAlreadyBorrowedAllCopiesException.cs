@@ -12,7 +12,7 @@ namespace SanLibrary.Core.Books.Exceptions
     {
         public BookId BookId { get; }
         public BookAlreadyBorrowedAllCopiesException(BookId bookId)
-            : base($"Cannot borrowing book with ID: '{bookId}'. All copies are borrowed.")
+            : base($"Cannot borrowing book with ID: '{bookId.Value}'. All copies are borrowed.")
         {
             BookId = bookId;
         }

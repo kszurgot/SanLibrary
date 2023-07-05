@@ -16,9 +16,9 @@ namespace SanLibrary.Infrastructure.DAL.Repositories
     {
         private static readonly HashSet<User> Users = new()
         {
-            new User(Seeder.PrepareGuid(1), "user1@example.com", "secret", "Jan Kowalski", Role.Employee, UserStatus.Active),
-            new User(Seeder.PrepareGuid(2), "user2@example.com", "secret", "Radosław Nowak", Role.RegularUser, UserStatus.Active),
-            new User(Seeder.PrepareGuid(3), "user3@example.com", "secret", "Michał Ryś", Role.RegularUser, UserStatus.Active),
+            new User(Seeder.PrepareGuid(1), "user1@example.com", "secret-pass", "Jan Kowalski", Role.Employee, UserStatus.Active),
+            new User(Seeder.PrepareGuid(2), "user2@example.com", "secret-pass", "Radosław Nowak", Role.RegularUser, UserStatus.Active),
+            new User(Seeder.PrepareGuid(3), "user3@example.com", "secret-pass", "Michał Ryś", Role.RegularUser, UserStatus.Active),
         };
 
         public Task<User?> GetAsync(UserId id) => Task.FromResult(Users.SingleOrDefault(x => x.Id == id));

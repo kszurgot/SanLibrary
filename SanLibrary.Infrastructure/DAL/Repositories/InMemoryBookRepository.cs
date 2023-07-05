@@ -25,5 +25,10 @@ namespace SanLibrary.Infrastructure.DAL.Repositories
             Books.Remove(book);
             return Task.CompletedTask;
         }
+
+        public Task UpdateAsync(Book book)
+        {
+            return Task.CompletedTask;
+        }
     }
 }

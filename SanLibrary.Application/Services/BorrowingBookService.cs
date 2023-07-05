@@ -29,7 +29,34 @@ namespace SanLibrary.Application.Services
             _borrowingBookDomainService = borrowingBookDomainService;
             _clock = clock;
         }
-        public async Task BorrowBookAsync(BorrowBookDto dto)
+
+        public async Task<IEnumerable<BorrowingBooksUserDto>> GetAllAsync(Guid userId)
+        {
+            var user = await _userRepository.GetAsync(userId);
+            if (user is null)
+            {
+                throw new UserNotFoundException(userId);
+            }
+
+            var books = await _borrowingBooksUserRepository.GetAllForUserAsync(userId);
+
+            return books.Select(x => new BorrowingBooksUserDto
+            {
+                Id = x.Id,
+                Month = x.Month,
+                UserId = x.UserId,
+                Books = x.Books.Select(b => new BorrowingBookDetailsDto
+                {
+                    Id = b.Id,
+                    UserId = x.UserId,
+                    BookId = b.Id,
+                    Date = b.Date,
+                    ReturnDate = b.ReturnDate,
+                })
+            });
+        }
+
+        public async Task BorrowBookAsync(BorrowingBookDto dto)
         {
             var userId = dto.UserId;
             var user = await _userRepository.GetAsync(userId);

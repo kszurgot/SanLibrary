@@ -2,6 +2,7 @@
 using SanLibrary.Application.Exceptions;
 using SanLibrary.Core.Books.Entities;
 using SanLibrary.Core.Books.Repositories;
+using SanLibrary.Core.Books.ValueObjects;
 using SanLibrary.Core.Publishers.Repositories;
 using System;
 using System.Collections.Generic;
@@ -25,9 +26,15 @@ namespace SanLibrary.Application.Services
             _publisherRepository = publisherRepository;
         }
 
-        public async Task<IEnumerable<BookDto>> GetAllAsync()
+        public async Task<IEnumerable<BookDto>> GetAllAsync(QueryBookDto queryBookDto)
         {
             var books = await _bookRepository.GetAllAsync();
+
+            books = books.Where(
+                x => (queryBookDto.AuthorId is null || x.Author.Id.Value == queryBookDto.AuthorId)
+                && (queryBookDto.PublisherId is null || x.Publisher.Id.Value == queryBookDto.PublisherId)
+                && (queryBookDto.Genre is null || x.Genre == queryBookDto.Genre));
+
             return books.Select(x => new BookDto
             {
                 Id = x.Id,
@@ -81,6 +88,33 @@ namespace SanLibrary.Application.Services
             await _bookRepository.AddAsync(
                 new Book(book.Id, book.Title, author, publisher,
                 book.ReleaseDate, book.ISBN, book.Genre, book.CopiesNumber));
+        }
+
+        public async Task UpdateAsync(UpdateBookDto updateBook)
+        {
+            var book = await _bookRepository.GetAsync(updateBook.Id);
+            if (book is null)
+            {
+                throw new BookNotFoundException(updateBook.Id);
+            }
+
+            var author = await _authorRepository.GetAsync(updateBook.AuthorId);
+            if (author == null)
+            {
+                throw new AuthorNotFoundException(updateBook.AuthorId);
+            }
+
+            var publisher = await _publisherRepository.GetAsync(updateBook.PublisherId);
+            if (publisher == null)
+            {
+                throw new PublisherNotFoundException(updateBook.PublisherId);
+            }
+
+
+            book.Update(updateBook.Title, author, publisher, updateBook.ReleaseDate,
+                updateBook.ISBN, updateBook.Genre, updateBook.CopiesNumber);
+
+            await _bookRepository.UpdateAsync(book); // it should be persisted in entity framework
         }
 
         public async Task DeleteAsync(Guid bookId)

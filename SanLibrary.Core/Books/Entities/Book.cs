@@ -1,4 +1,5 @@
-﻿using SanLibrary.Core.Books.ValueObjects;
+﻿using SanLibrary.Core.Books.Exceptions;
+using SanLibrary.Core.Books.ValueObjects;
 using SanLibrary.Core.Publishers.Entities;
 
 namespace SanLibrary.Core.Books.Entities
@@ -14,7 +15,6 @@ namespace SanLibrary.Core.Books.Entities
         public Genre Genre { get; private set; }
         
         public CopiesNumber CopiesNumber { get; private set; }
-        //public AvailableCopiesNumber AvailableCopiesNumber { get; private set; }
 
         public Book(
             BookId bookId,
@@ -25,7 +25,6 @@ namespace SanLibrary.Core.Books.Entities
             ISBN ISBN, 
             Genre genre,
             CopiesNumber copiesNumber)
-         //   AvailableCopiesNumber? availableCopiesNumber = null)
         {
             Id = bookId;
             Title = title;
@@ -35,15 +34,6 @@ namespace SanLibrary.Core.Books.Entities
             this.ISBN = ISBN;
             Genre = genre;
             CopiesNumber = copiesNumber;
-
-            //if (availableCopiesNumber == null)
-            //{
-            //    AvailableCopiesNumber = (int) copiesNumber;
-            //} 
-            //else
-            //{
-            //    AvailableCopiesNumber = availableCopiesNumber;
-            //}
         }
 
         public void Update(
@@ -52,7 +42,8 @@ namespace SanLibrary.Core.Books.Entities
             Publisher publisher,
             ReleaseDate releaseDate,
             ISBN ISBN,
-            Genre genre)
+            Genre genre,
+            CopiesNumber copiesNumber)
         {
             Title = title;
             Author = author;
@@ -60,6 +51,13 @@ namespace SanLibrary.Core.Books.Entities
             ReleaseDate = releaseDate;
             this.ISBN = ISBN;
             Genre = genre;
+
+            if (copiesNumber < CopiesNumber)
+            {
+                throw new BookCopiesNumberIsLessThanCurrently(copiesNumber, CopiesNumber);
+            }
+
+            CopiesNumber = copiesNumber;
         }
     }
 }

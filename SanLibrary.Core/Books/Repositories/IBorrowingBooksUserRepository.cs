@@ -13,6 +13,7 @@ namespace SanLibrary.Core.Books.Repositories
     {
         Task<BorrowingBooksUser?> GetAsync(BorrowingBooksUserId id);
         Task<IEnumerable<BorrowingBooksUser>> GetAllAsync();
+        Task<IEnumerable<BorrowingBooksUser>> GetAllForUserAsync(UserId userId);
         Task<BorrowingBooksUser?> GetForCurrentMonthAsync(UserId userId);
         Task AddAsync(BorrowingBooksUser borrowingBooksUser);
         Task DeleteAsync(BorrowingBooksUser borrowingBooksUser);

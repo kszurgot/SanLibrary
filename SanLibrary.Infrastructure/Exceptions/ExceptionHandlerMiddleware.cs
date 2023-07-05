@@ -2,6 +2,7 @@ using System.Net;
 using System.Net.Mime;
 using Microsoft.AspNetCore.Http;
 using Newtonsoft.Json;
+using SanLibrary.Application.Exceptions;
 using SanLibrary.Core.Shared.Exceptions;
 
 namespace SanLibrary.Infrastructure.Exceptions;
@@ -13,9 +14,7 @@ internal sealed class ErrorHandlerMiddleware : IMiddleware
     {
         try
         {
-            Console.WriteLine("before");
             await next(context);
-            Console.WriteLine("after");
         }
         catch (Exception exception)
         {
@@ -36,6 +35,7 @@ internal sealed class ErrorHandlerMiddleware : IMiddleware
     private static (Error error, HttpStatusCode code) Map(Exception exception)
         => exception switch
         {
+            NotFoundException ex => (new Error(GetErrorCode(ex), ex.Message), HttpStatusCode.NotFound),
             CustomException ex => (new Error(GetErrorCode(ex), ex.Message), HttpStatusCode.BadRequest),
             _ => (new Error("error", "There was an error."), HttpStatusCode.InternalServerError)
         };

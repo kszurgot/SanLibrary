@@ -14,5 +14,6 @@ namespace SanLibrary.Core.Books.Repositories
         Task<IEnumerable<Book>> GetAllAsync();
         Task AddAsync(Book book);
         Task DeleteAsync(Book book);
+        Task UpdateAsync(Book book);
     }
 }
